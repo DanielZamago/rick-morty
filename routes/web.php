@@ -1,7 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PersonajeController;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(PersonajeController::class)->group(function(){
+    Route::get('/', 'index');
+    Route::get('/personajes', 'showAll');
+    Route::get('/personajes/guardados', 'showSaved');
 });
