@@ -12,6 +12,7 @@
         <div class="card text-center">
             <div class="card-header">
                 <h1>@yield('title')</h1>
+                <a href="{{url('/')}}" class="btn btn-danger">volver</a>
             </div>
             <div class="card-body">
                 <h5 class="card-title">@yield('subtitle')</h5>

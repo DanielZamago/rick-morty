@@ -2,11 +2,11 @@
 
 @section('title', 'RICK AND MORTY')
 
-@section('subtitle', 'Selecciona que opción deseas realizar')
+@section('subtitle', 'Selecciona que vista deseas visitar')
 
 @section('content')
     <div class="container mt-3">
-        <a href="#" class="btn btn-primary">Todos los personajes</a>
-        <a href="#" class="btn btn-primary">Personajes Guardados</a>
+        <a href="{{url('personajes')}}" class="btn btn-primary">Personajes</a>
+        <a href="{{url('personajes/guardados')}}" class="btn btn-info">Personajes Guardados</a>
     </div>
 @endSection
