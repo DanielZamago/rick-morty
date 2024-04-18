@@ -9,4 +9,5 @@ Route::controller(PersonajeController::class)->group(function(){
     Route::get('/personajes/guardados', 'showSaved');
     Route::post('/personajes/buscar', 'search');
     Route::post('/personajes/guardar', 'create');
+    Route::post('/personajes/eliminar', 'delete');
 });

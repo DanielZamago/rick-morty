@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use App\Models\Personaje;
-
+use Faker\Provider\ar_EG\Person;
 use Illuminate\Http\Request;
+
+use function Laravel\Prompts\alert;
 
 class PersonajeController extends Controller
 {
@@ -18,7 +20,7 @@ class PersonajeController extends Controller
 
     public function showSaved(){
         $personajes = Personaje::all();
-        return response(json_encode($personajes),200)->header('Content-Type', 'text/plain');
+        return view('personajes.showSaved', compact('personajes'));
     }
 
     public function search(Request $request){
@@ -71,4 +73,18 @@ class PersonajeController extends Controller
         session()->flash('mensaje', 'Personaje guardado correctamente');
         return view('personajes.index');
     }
+
+    public function delete(Request $request){
+        $idPersonaje = $request->input('idPersonaje');
+        $personaje = Personaje::where('idPersonaje', $idPersonaje)->first();
+        if($personaje) {
+            $personaje->delete();
+            session()->flash('mensaje', 'Personaje eliminado correctamente');
+        } else {
+            session()->flash('error', 'Personaje no encontrado');
+        }
+
+        return view('personajes.index');
+    }
+
 }
