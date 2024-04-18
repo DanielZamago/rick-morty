@@ -51,7 +51,14 @@
                             $('.row').append(`
                                 <div class="col col-4 mt-2">
                                     <div class="card" > 
-                                        <img class="card-img-top" src="${personaje.image}">
+                                        <div class="contenedor">
+                                            <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#modalInfo" onclick="cambiarTextoModal(${personaje.id})">
+                                                <img src="${personaje.image}" alt="Avatar" class="img">
+                                                <div class="overlay" >
+                                                    <div class="texto">${personaje.name}</div>
+                                                </div>
+                                            </button>
+                                        </div>
                                         <div class="card-header">
                                             <button class="btn btn-success" type="button">
                                                 Guardar personaje
@@ -82,5 +89,14 @@
                 });
             });
         });
+
+    function cambiarTextoModal(id){
+        $.ajax({
+            url: 'https://rickandmortyapi.com/api/character/' + id,
+            type: 'GET'
+        }).done(function(personaje){
+            $('#infoPersonaje').text(personaje.name + " -> " + personaje.status + ", " + personaje.species + ", " + personaje.origin.name);
+        });
+    }
     </script>
 @endSection
