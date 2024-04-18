@@ -7,6 +7,12 @@
     <title>@yield('title')</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
+        .fondo{
+            background-color: rgb(97, 97, 97);
+        }
+        .carta{
+            background-color: #f7f7f7
+        }
         .contenedor {
           position: relative;
         }
@@ -47,7 +53,7 @@
         }
     </style>
 </head>
-<body class="fondo">
+<body class="fondo" id="fondo">
     <div class="container mt-5">
         <div class="carta card text-center">
             <div class="card-header">

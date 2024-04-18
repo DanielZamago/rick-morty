@@ -11,7 +11,7 @@
                 @csrf
                 <div class="input-group mb-3">
                     <input type="number" class="form-control" name="idLocalizacion" placeholder="ID Localización">
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
+                    <button class="btn btn-success" type="submit" id="button-addon2">Buscar</button>
                 </div>
             </form>
         </div>
@@ -27,6 +27,13 @@
         $(document).ready(function(){
             $('#form').submit(function(e){
                 e.preventDefault();
+                if($('input[name="idLocalizacion"]').val() <=50){
+                    document.getElementById('fondo').style.backgroundColor = "green";          
+                }else if($('input[name="idLocalizacion"]').val() <= 80){
+                    document.getElementById('fondo').style.backgroundColor = "blue";
+                }else if($('input[name="idLocalizacion"]').val() > 80){
+                    document.getElementById('fondo').style.backgroundColor = "red";
+                }
                 $.ajax({
                     url: 'personajes/buscar',
                     type: 'POST',
