@@ -7,6 +7,6 @@
 @section('content')
     <div class="container mt-3">
         <a href="{{url('personajes')}}" class="btn btn-primary">Personajes</a>
-        <a href="{{url('personajes/guardados')}}" class="btn btn-info">Personajes Guardados</a>
+        <a href="{{url('personajes/guardados')}}" class="btn btn-warning">Personajes Guardados</a>
     </div>
 @endSection
