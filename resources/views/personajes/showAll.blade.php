@@ -60,9 +60,13 @@
                                             </button>
                                         </div>
                                         <div class="card-header">
-                                            <button class="btn btn-success" type="button">
-                                                Guardar personaje
-                                            </button>
+                                            <form action="personajes/guardar" method="POST">
+                                                @csrf
+                                                <input type="hidden" id="idPersonaje" name="idPersonaje" value="${personaje.id}">
+                                                <button class="btn btn-success" type="submit">
+                                                    Guardar personaje
+                                                </button>
+                                            </form>
                                         </div>
                                         <div class="card-body">
                                             <h5 class="card-title">Nombre: ${personaje.name}</h5>
@@ -90,13 +94,14 @@
             });
         });
 
-    function cambiarTextoModal(id){
-        $.ajax({
-            url: 'https://rickandmortyapi.com/api/character/' + id,
-            type: 'GET'
-        }).done(function(personaje){
-            $('#infoPersonaje').text(personaje.name + " -> " + personaje.status + ", " + personaje.species + ", " + personaje.origin.name);
-        });
-    }
+        function cambiarTextoModal(id){
+            $.ajax({
+                url: 'https://rickandmortyapi.com/api/character/' + id,
+                type: 'GET'
+            }).done(function(personaje){
+                $('#infoPersonaje').text(personaje.name + " -> " + personaje.status + ", " + personaje.species + ", " + personaje.origin.name);
+            });
+        }
+
     </script>
 @endSection

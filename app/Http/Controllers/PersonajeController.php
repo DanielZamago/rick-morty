@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
+use App\Models\Personaje;
 
 use Illuminate\Http\Request;
 
@@ -16,7 +17,8 @@ class PersonajeController extends Controller
     }
 
     public function showSaved(){
-        return view('personajes.showSaved');
+        $personajes = Personaje::all();
+        return response(json_encode($personajes),200)->header('Content-Type', 'text/plain');
     }
 
     public function search(Request $request){
@@ -45,5 +47,28 @@ class PersonajeController extends Controller
 
         return response(json_encode($personajes),200)->header('Content-Type', 'text/plain');
 
+    }
+
+    public function create(Request $request){
+        $personaje = new Personaje();
+        $idPersonaje = Http::get('https://rickandmortyapi.com/api/character/'.$request->input('idPersonaje'))->json();
+        
+        $personajeExistente = Personaje::where('idPersonaje', $idPersonaje['id'])->first();
+        if($personajeExistente){
+            session()->flash('error', 'El personaje ya ha sido guardado');
+            return view('personajes.index');
+        }
+
+        $personaje->idPersonaje = $idPersonaje['id'];
+        $personaje->nombre = $idPersonaje['name'];
+        $personaje->especie = $idPersonaje['species'];
+        $personaje->estado = $idPersonaje['status'];
+        $personaje->tipo = $idPersonaje['type'];
+        $personaje->genero = $idPersonaje['origin']['name'];
+        $personaje->imagen = $idPersonaje['image'];
+        $personaje->save();
+
+        session()->flash('mensaje', 'Personaje guardado correctamente');
+        return view('personajes.index');
     }
 }
