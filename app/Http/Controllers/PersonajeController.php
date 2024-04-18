@@ -46,6 +46,10 @@ class PersonajeController extends Controller
         if(isset($personajes['id'])){
             $personajes = [$personajes];
         }
+        
+        usort($personajes, function($a, $b) {
+            return $a['name'] <=> $b['name'];
+        });
 
         return response(json_encode($personajes),200)->header('Content-Type', 'text/plain');
 
