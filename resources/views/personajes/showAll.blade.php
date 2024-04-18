@@ -22,7 +22,7 @@
 @endSection
 
 @section('scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
     <script>
         $(document).ready(function(){
             $('#form').submit(function(e){
@@ -36,34 +36,49 @@
                     },
                 }).done(function(data){
                     var personajes = JSON.parse(data);
+                    console.log(personajes);
                     $('.row').empty();
-                    personajes.forEach(personaje => {
+                    if(personajes.length == undefined || personajes.length == 0){
                         $('.row').append(`
-                            <div class="col col-4 mt-2">
-                                <div class="card" > 
-                                    <img class="card-img-top" src="${personaje.image}">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Nombre: ${personaje.name}</h5>
-                                        <h5 class="card-title
-                                        ">Estado: ${personaje.status}</h5>
-                                        <h5 class="card-title
-                                        ">Especie: ${personaje.species}</h5>
-                                        <h5 class="card-title
-                                        ">Origen: ${personaje.origin.name}</h5>
-                                        <h5 class="card-text">Episodios: </h5>
-                                        <div class="card-text">
-                                            ${personaje.episode.map((episodio, index) => {
-                                                if(index < 3){
-                                                    return `<a href="${episodio}">${episodio}</a><br>`;
-                                                }
-                                            }).join('')}
-                                        </div>
-                                    </div>
+                            <div class="col col-12 mt-2">
+                                <div class="alert alert-danger" role="alert">
+                                    No se encontraron personajes
                                 </div>
                             </div>
                         `);
-                    });
-                        
+                    }else{
+                        personajes.forEach(personaje => {
+                            $('.row').append(`
+                                <div class="col col-4 mt-2">
+                                    <div class="card" > 
+                                        <img class="card-img-top" src="${personaje.image}">
+                                        <div class="card-header">
+                                            <button class="btn btn-success" type="button">
+                                                Guardar personaje
+                                            </button>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Nombre: ${personaje.name}</h5>
+                                            <h5 class="card-title
+                                            ">Estado: ${personaje.status}</h5>
+                                            <h5 class="card-title
+                                            ">Especie: ${personaje.species}</h5>
+                                            <h5 class="card-title
+                                            ">Origen: ${personaje.origin.name}</h5>
+                                            <h5 class="card-text">Episodios: </h5>
+                                            <div class="card-text">
+                                                ${personaje.episode.map((episodio, index) => {
+                                                    if(index < 3){
+                                                        return `<a href="${episodio}">${episodio}</a><br>`;
+                                                    }
+                                                }).join('')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `);
+                        });
+                    }
                 });
             });
         });
